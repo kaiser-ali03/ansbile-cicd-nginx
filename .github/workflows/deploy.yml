@@ -23,14 +23,14 @@ jobs:
             - name: Add SSH key and set permission
               run: |
                mkdir -p ~/.ssh
-               echo "${{ secrets.ANSIBLE_PRIVATE_KEY }}" > ~/.ssh/id_rsa 
+               echo "$ {{ secrets.ANSIBLE_PRIVATE_KEY }}" > ~/.ssh/id_rsa 
                chmod 600 ~/.ssh/id_rsa
-               ssh-keyscan -H ${{secrets.HOST }} >> ~/.ssh/known_hosts
+               ssh-keyscan -H $ {{secrets.HOST }} >> ~/.ssh/known_hosts
 
             - name: Replace placeholders in my inventory
               run: |
-               sed -i "s/{{host_placeholder }}/${{secrets.HOST}}/" ansible/inventory.yml
-               sed -i "s/{{user_placeholder }}/${{ secrets.REMOTE_USER }}/"  ansible/inventory.yml
+               sed -i "s/{{ host_placeholder }}/$ {{secrets.HOST}}/" ansible/inventory.yml
+               sed -i "s/{{ user_placeholder }}/$ {{ secrets.REMOTE_USER }}/"  ansible/inventory.yml
 
             - name: Run ansible playbook
               run: |
